@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEARU × KALTURA — Feel the Difference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:          #0D1117;
+  --bg-panel:    #161B22;
+  --bg-card:     #1C2230;
+  --bg-input:    #21293A;
+  --blue:        #3B9EFF;
+  --blue-bright: #58B4FF;
+  --blue-dim:    rgba(59,158,255,0.12);
+  --blue-border: rgba(59,158,255,0.25);
+  --blue-glow:   rgba(59,158,255,0.06);
+  --border:      rgba(255,255,255,0.07);
+  --border-md:   rgba(255,255,255,0.11);
+  --text:        #E6EDF3;
+  --text-muted:  #7D8590;
+  --text-dim:    #4D5566;
+  --green:       #3FB950;
+  --green-dim:   rgba(63,185,80,0.12);
+  --amber:       #D29922;
+  --amber-dim:   rgba(210,153,34,0.12);
+  --red:         #F85149;
+  --r-sm: 6px; --r: 10px; --r-lg: 12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:4px}
+
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg-panel);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;padding:20px 0 16px}
+.sb-logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.sb-logo .wordmark{font-size:20px;font-weight:700;letter-spacing:-0.02em;color:var(--blue)}
+.sb-logo .tag{font-size:9px;font-weight:500;color:var(--text-muted);letter-spacing:0.08em;margin-left:4px;vertical-align:middle;text-transform:uppercase}
+.sb-sec{padding:0 12px;margin-bottom:20px}
+.sb-lbl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:0 8px;margin-bottom:4px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:var(--r-sm);cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);transition:all 0.15s;text-decoration:none;margin-bottom:1px}
+.nav-item:hover{background:rgba(255,255,255,0.05);color:var(--text)}
+.nav-item.active{background:var(--blue-dim);color:var(--blue)}
+.nav-item svg{width:15px;height:15px;flex-shrink:0;opacity:0.7}
+.nav-item.active svg{opacity:1}
+.sb-footer{margin-top:auto;padding:12px 12px 0;border-top:1px solid var(--border)}
+.user-row{display:flex;align-items:center;gap:10px;padding:8px}
+.user-av{width:28px;height:28px;border-radius:50%;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--blue);flex-shrink:0}
+.u-name{font-size:12px;font-weight:600}
+.u-role{font-size:11px;color:var(--text-muted)}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;overflow-y:auto}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 28px;border-bottom:1px solid var(--border);background:rgba(22,27,34,0.9);position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
+.tb-title{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;color:var(--text)}
+.tb-sep{color:var(--text-dim);font-weight:300;font-size:16px}
+.tb-sub{font-weight:400;color:var(--text-muted);font-size:13px}
+.tb-right{display:flex;align-items:center;gap:8px}
+
+/* STATUS PILLS */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;white-space:nowrap}
+.pill-green{background:var(--green-dim);color:var(--green);border-color:rgba(63,185,80,0.25)}
+.pill-blue{background:var(--blue-dim);color:var(--blue);border-color:var(--blue-border)}
+.pill-amber{background:var(--amber-dim);color:var(--amber);border-color:rgba(210,153,34,0.3)}
+.pill-ghost{background:rgba(255,255,255,0.04);color:var(--text-muted);border-color:var(--border)}
+.sdot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sdot.pulse{animation:sdp 2s ease-in-out infinite}
+@keyframes sdp{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.icon-btn{width:32px;height:32px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--text-muted);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s}
+.icon-btn:hover{background:rgba(255,255,255,0.05);color:var(--text);border-color:var(--border-md)}
+
+/* PAGE */
+.page{padding:28px;display:flex;flex-direction:column;gap:28px}
+
+/* HERO */
+.hero{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r-lg);padding:36px 44px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-100px;right:-100px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(59,158,255,0.07) 0%,transparent 70%);pointer-events:none}
+.hero-pre{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.hero-pre::before{content:'';width:20px;height:1px;background:var(--blue);opacity:0.5}
+.hero-h{font-size:32px;font-weight:700;line-height:1.15;letter-spacing:-0.03em;max-width:600px;margin-bottom:14px}
+.hero-h .ac{color:var(--blue)}
+.hero-p{font-size:14px;color:var(--text-muted);max-width:500px;line-height:1.65;margin-bottom:24px}
+.hero-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:var(--r-sm);font-size:13px;font-weight:600;cursor:pointer;border:1px solid transparent;transition:all 0.15s;font-family:inherit}
+.btn-primary{background:var(--blue);color:#0D1117;border-color:var(--blue)}
+.btn-primary:hover{background:var(--blue-bright)}
+.btn-outline{background:transparent;color:var(--text);border-color:var(--border-md)}
+.btn-outline:hover{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.2)}
+.btn svg{width:13px;height:13px;flex-shrink:0}
+
+/* HERO STATS */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:28px}
+.hstat{background:var(--bg-card);padding:18px 22px;position:relative}
+.hstat-n{font-size:26px;font-weight:700;letter-spacing:-0.03em;line-height:1;margin-bottom:5px}
+.hstat-n .u{font-size:15px;color:var(--text-muted);font-weight:400}
+.hstat-l{font-size:12px;color:var(--text-muted);line-height:1.4}
+.hstat-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px}
+.b-blue{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border)}
+.b-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(63,185,80,0.25)}
+.b-amber{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(210,153,34,0.3)}
+
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.sec-lbl{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:4px}
+.sec-title{font-size:19px;font-weight:700;letter-spacing:-0.02em}
+.sec-sub{font-size:13px;color:var(--text-muted);margin-top:3px}
+
+/* TABS */
+.tab-row{display:flex;gap:2px;background:var(--bg-card);padding:3px;border-radius:var(--r-sm);border:1px solid var(--border)}
+.tab{padding:5px 13px;border-radius:4px;font-size:12px;font-weight:500;color:var(--text-muted);background:transparent;border:none;cursor:pointer;transition:all 0.15s;font-family:inherit;white-space:nowrap}
+.tab.active{background:var(--blue);color:#0D1117;font-weight:600}
+.tab:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.05)}
+
+/* DEMO GRID */
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* AGENT CARD */
+.agent-card{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+.agent-card.an{border-color:var(--blue-border);box-shadow:0 0 0 1px rgba(59,158,255,0.06)}
+
+/* CARD HEADER */
+.card-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--border)}
+.an .card-hdr{border-bottom-color:var(--blue-border)}
+.card-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+.cbadge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px}
+.cbadge-std{background:rgba(255,255,255,0.06);color:var(--text-muted);border:1px solid var(--border)}
+.cbadge-n{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* AVATAR AREA */
+.av-area{display:flex;align-items:flex-start;gap:13px;padding:18px 14px 10px}
+.av-ring{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--border-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg-card);overflow:hidden}
+.an .av-ring{border-color:var(--blue-border);animation:rp 3s ease-in-out infinite}
+@keyframes rp{0%,100%{box-shadow:0 0 0 0 rgba(59,158,255,0)}50%{box-shadow:0 0 0 4px rgba(59,158,255,0.1)}}
+.av-ring svg{width:100%;height:100%}
+.av-meta{flex:1;min-width:0}
+.av-name{font-size:13px;font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.av-status{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.av-status .sdot{width:5px;height:5px}
+
+/* EMO BARS */
+.emo-bars{display:flex;flex-direction:column;gap:5px}
+.er{display:flex;align-items:center;gap:8px;font-size:11px}
+.ek{color:var(--text-muted);width:74px;flex-shrink:0}
+.et{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.ef{height:100%;border-radius:2px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1)}
+.ep{font-size:10px;color:var(--text-dim);width:26px;text-align:right;flex-shrink:0}
+
+/* INTERCEPT STRIP */
+.istrip{padding:8px 14px;font-size:11px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;min-height:34px;transition:all 0.3s;color:var(--text-muted);background:var(--bg-card)}
+.istrip.is-std{color:var(--text-muted);background:rgba(255,255,255,0.02);border-color:var(--border-md)}
+.istrip.is-nearu{color:var(--blue);background:var(--blue-glow);border-color:var(--blue-border)}
+.idot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;animation:sdp 1.2s ease-in-out infinite}
+.itext{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* WAVEFORM */
+.waveform{display:flex;align-items:center;gap:2px;height:16px;flex-shrink:0}
+.wb{width:2px;background:var(--blue);border-radius:2px;opacity:0.5}
+.waveform.live .wb{animation:wv 0.7s ease-in-out infinite}
+.wb:nth-child(1){height:4px;animation-delay:0s}.wb:nth-child(2){height:10px;animation-delay:0.1s}.wb:nth-child(3){height:14px;animation-delay:0.2s}.wb:nth-child(4){height:10px;animation-delay:0.3s}.wb:nth-child(5){height:6px;animation-delay:0.15s}
+@keyframes wv{0%,100%{transform:scaleY(0.3);opacity:0.3}50%{transform:scaleY(1);opacity:0.9}}
+
+/* CHAT */
+.chat{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;min-height:180px;flex:1;overflow-y:auto;max-height:240px}
+.bbl{padding:10px 12px;border-radius:var(--r);font-size:13px;line-height:1.55;max-width:90%;opacity:0;transform:translateY(6px);transition:all 0.35s ease}
+.bbl.show{opacity:1;transform:translateY(0)}
+.bbl-who{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;opacity:0.55}
+.bbl-user{background:var(--bg-card);border:1px solid var(--border-md);border-radius:10px 10px 10px 3px;align-self:flex-start}
+.bbl-user .bbl-who{color:var(--text-muted)}
+.bbl-std{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px 3px 10px 10px;align-self:flex-end;color:var(--text-muted)}
+.bbl-std .bbl-who{color:rgba(255,255,255,0.25)}
+.bbl-smart{background:var(--blue-glow);border:1px solid var(--blue-border);border-radius:10px 3px 10px 10px;align-self:flex-end}
+.bbl-smart .bbl-who{color:var(--blue)}
+.bbl-smart .hl{color:var(--blue-bright);font-weight:500}
+
+/* EMOTION SNAPSHOT (bottom bar — exact match to Nearu UI) */
+.emo-snap{padding:9px 14px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.an .emo-snap{border-top-color:var(--blue-border)}
+.snap-l{display:flex;align-items:center;gap:8px}
+.snap-lbl{color:var(--text-muted)}
+.epill{padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid;transition:all 0.5s ease}
+.ep-calm{background:rgba(63,185,80,0.1);color:#3FB950;border-color:rgba(63,185,80,0.3)}
+.ep-anxious{background:rgba(210,153,34,0.1);color:#D29922;border-color:rgba(210,153,34,0.3)}
+.ep-frustrated{background:rgba(248,81,73,0.1);color:#F85149;border-color:rgba(248,81,73,0.3)}
+.ep-vulnerable{background:rgba(59,158,255,0.1);color:#3B9EFF;border-color:rgba(59,158,255,0.3)}
+.ep-disengaged{background:rgba(163,113,247,0.1);color:#A371F7;border-color:rgba(163,113,247,0.3)}
+.ep-cautious{background:rgba(210,153,34,0.1);color:#D29922;border-color:rgba(210,153,34,0.3)}
+.snap-conf{color:var(--text-muted)}
+.no-snap{padding:9px 14px;background:var(--bg-card);border-top:1px solid var(--border);display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim)}
+
+/* QUICK TOOLS */
+.qt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.qt-card{background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:all 0.15s}
+.qt-card:hover{border-color:var(--border-md);background:var(--bg-card);transform:translateY(-1px)}
+.qt-card.qt-active{border-color:var(--blue-border);background:var(--blue-glow)}
+.qt-num{font-size:10px;font-weight:600;color:var(--text-dim);letter-spacing:0.06em;margin-bottom:8px}
+.qt-icon{font-size:18px;margin-bottom:7px}
+.qt-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.qt-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
+
+/* METRICS */
+.m4{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.mcell{background:var(--bg-panel);padding:22px 18px;position:relative}
+.mcell::after{content:'';position:absolute;bottom:0;left:0;width:0%;height:2px;background:var(--blue);transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+.mcell.anm::after{width:var(--w,80%)}
+.mn{font-size:34px;font-weight:700;letter-spacing:-0.03em;color:var(--text);line-height:1;margin-bottom:5px}
+.mn .u{font-size:17px;color:var(--text-muted);font-weight:400}
+.mname{font-size:12px;font-weight:600;margin-bottom:3px}
+.mdesc{font-size:11px;color:var(--text-muted);line-height:1.5}
+.mtag{display:inline-flex;align-items:center;gap:4px;margin-top:9px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue-border)}
+
+/* PIPELINE */
+.pipeline{display:flex;align-items:stretch;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.pcell{background:var(--bg-panel);padding:18px 14px;flex:1;text-align:center;position:relative;transition:all 0.15s;min-width:0}
+.pcell:hover{background:var(--bg-card)}
+.pcell.pn{background:var(--blue-glow)}
+.pcell.pn::before{content:'NEARU';position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--blue);color:var(--bg);font-size:8px;font-weight:700;letter-spacing:0.1em;padding:2px 8px;border-radius:0 0 6px 6px}
+.pstep{font-size:10px;font-weight:600;color:var(--text-dim);letter-spacing:0.1em;margin-bottom:7px}
+.picon{font-size:20px;margin-bottom:7px}
+.pname{font-size:12px;font-weight:700;margin-bottom:3px}
+.pdesc{font-size:10px;color:var(--text-muted);line-height:1.4}
+
+/* PROOF PILLS */
+.proof-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.proof-pill{display:flex;align-items:center;gap:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--r);padding:14px 18px;flex:1;min-width:160px}
+.pp-num{font-size:22px;font-weight:700;letter-spacing:-0.03em;color:var(--blue);line-height:1;flex-shrink:0}
+.pp-txt{font-size:11px;color:var(--text-muted);line-height:1.4}
+
+/* CTA */
+.cta-card{background:var(--bg-panel);border:1px solid var(--blue-border);border-radius:var(--r-lg);padding:44px;text-align:center;position:relative;overflow:hidden}
+.cta-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(59,158,255,0.05),transparent);pointer-events:none}
+.cta-pre{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;position:relative}
+.cta-h{font-size:30px;font-weight:700;letter-spacing:-0.03em;line-height:1.15;margin-bottom:12px;position:relative}
+.cta-p{font-size:14px;color:var(--text-muted);max-width:420px;margin:0 auto 24px;line-height:1.65;position:relative}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
+.cta-foot{margin-top:20px;font-size:12px;color:var(--text-dim);position:relative}
+.cta-foot a{color:var(--text-muted);text-decoration:none}.cta-foot a:hover{color:var(--blue)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(18px);transition:all 0.55s cubic-bezier(0.4,0,0.2,1)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:0.08s}.reveal.d2{transition-delay:0.16s}.reveal.d3{transition-delay:0.24s}
+
+@media(max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .demo-grid{grid-template-columns:1fr}
+  .m4{grid-template-columns:1fr 1fr}
+  .qt-grid{grid-template-columns:1fr 1fr}
+  .pipeline{flex-wrap:wrap}
+  .page{padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <span class="wordmark">NEARU</span><span class="tag">× Kaltura</span>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Workspace</div>
+    <a href="#" class="nav-item active">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><circle cx="8" cy="8" r="2" fill="currentColor" stroke="none"/></svg>
+      Live Session
+    </a>
+    <a href="#metrics-s" class="nav-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12L6 7l3 3 5-6"/></svg>
+      Impact Metrics
+    </a>
+    <a href="#tech-s" class="nav-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="5" height="9" rx="1"/><rect x="9" y="2" width="5" height="12" rx="1"/></svg>
+      Architecture
+    </a>
+    <a href="#cta-s" class="nav-item">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v12M2 8h12"/></svg>
+      Start Pilot
+    </a>
+  </div>
+  <div class="sb-sec">
+    <div class="sb-lbl">Tools</div>
+    <a class="nav-item" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+      Settings
+    </a>
+  </div>
+  <div class="sb-footer">
+    <div class="user-row">
+      <div class="user-av">K</div>
+      <div><div class="u-name">Kaltura Demo</div><div class="u-role">Partner Preview</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div class="tb-title">
+      Live Session <span class="tb-sep">—</span> <span class="tb-sub">Scenario Demo</span>
+    </div>
+    <div class="tb-right">
+      <div class="pill pill-green" id="g-status"><div class="sdot pulse"></div>Responding</div>
+      <button class="icon-btn">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l3 3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- HERO -->
+    <div class="hero reveal">
+      <div class="hero-pre">NEARU Soul Engine™ — Kaltura Integration Preview</div>
+      <h1 class="hero-h">Your avatars can hear.<br><span class="ac">Can they feel?</span></h1>
+      <p class="hero-p">Kaltura Immersive Agents already have voice, vision, and knowledge. Nearu adds the one layer that's still missing — real-time emotional intelligence. Select a scenario below to see the difference.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="document.getElementById('demo-s').scrollIntoView({behavior:'smooth'})">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 3l8 5-8 5V3z"/></svg>Watch the Demo
+        </button>
+        <button class="btn btn-outline" onclick="document.getElementById('tech-s').scrollIntoView({behavior:'smooth'})">View Architecture</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat">
+          <div class="hstat-n">68<span class="u">%</span></div>
+          <div class="hstat-l">of users abandon after one emotionally failed AI interaction</div>
+          <div class="hstat-badge b-blue">Problem</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-n">$13.8<span class="u">B</span></div>
+          <div class="hstat-l">Emotion AI market by 2030 — growing at 24.5% CAGR</div>
+          <div class="hstat-badge b-green">Market</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-n">&lt;10<span class="u">wk</span></div>
+          <div class="hstat-l">To a live Nearu-enhanced pilot inside Kaltura's stack</div>
+          <div class="hstat-badge b-amber">Timeline</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO -->
+    <div id="demo-s">
+      <div class="sec-hdr reveal">
+        <div>
+          <div class="sec-lbl">Live Scenario Comparison</div>
+          <div class="sec-title">Same user. Same question. <span style="color:var(--blue)">Completely different experience.</span></div>
+          <div class="sec-sub">Select a scenario, then press Play to watch both agents respond.</div>
+        </div>
+        <div class="tab-row">
+          <button class="tab active" onclick="setS(0,this)">🔴 HR Onboarding</button>
+          <button class="tab" onclick="setS(1,this)">💬 Support</button>
+          <button class="tab" onclick="setS(2,this)">💼 Sales</button>
+          <button class="tab" onclick="setS(3,this)">📚 Training</button>
+        </div>
+      </div>
+
+      <div class="demo-grid reveal d1">
+        <!-- STANDARD -->
+        <div class="agent-card">
+          <div class="card-hdr">
+            <div class="card-name">Agent A <span class="cbadge cbadge-std">Standard Kaltura Avatar</span></div>
+            <div class="pill pill-ghost" id="sp-std"><div class="sdot" style="background:var(--text-muted)"></div>Ready</div>
+          </div>
+          <div class="av-area">
+            <div class="av-ring">
+              <svg viewBox="0 0 52 52" fill="none">
+                <circle cx="26" cy="26" r="26" fill="#1C2230"/>
+                <ellipse cx="26" cy="23" rx="9" ry="10" fill="#2A3345"/>
+                <circle cx="26" cy="21" r="6.5" fill="#333E55"/>
+                <circle cx="23" cy="20.5" r="2.2" fill="#6B7A96"/>
+                <circle cx="29" cy="20.5" r="2.2" fill="#6B7A96"/>
+                <path d="M22 26 Q26 29 30 26" stroke="#6B7A96" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+                <ellipse cx="26" cy="38" rx="12" ry="8" fill="#2A3345"/>
+              </svg>
+            </div>
+            <div class="av-meta">
+              <div class="av-name">Kaltura Agent</div>
+              <div class="av-status"><div class="sdot" style="background:var(--text-dim)"></div><span id="std-st">No emotion detection</span></div>
+              <div style="font-size:11px;color:var(--text-dim);display:flex;align-items:center;gap:5px">
+                <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v4"/><circle cx="8" cy="11.5" r="0.5" fill="currentColor"/></svg>
+                Emotional state: unknown
+              </div>
+            </div>
+          </div>
+          <div class="istrip" id="i-std"><div class="idot" style="background:var(--text-dim)"></div><span class="itext" id="it-std">Awaiting input…</span></div>
+          <div class="chat" id="chat-std"></div>
+          <div class="no-snap">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><circle cx="8" cy="8" r="6"/><path d="M5.5 8.5c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5"/><circle cx="8" cy="11" r="0.5" fill="currentColor"/></svg>
+            Detected emotion: — <span style="margin-left:auto;font-size:10px">No confidence data</span>
+          </div>
+        </div>
+
+        <!-- NEARU -->
+        <div class="agent-card an">
+          <div class="card-hdr">
+            <div class="card-name">Agent B <span class="cbadge cbadge-n">+ NEARU Soul Engine™</span></div>
+            <div class="pill pill-blue" id="sp-nearu"><div class="sdot pulse"></div>Sensing</div>
+          </div>
+          <div class="av-area">
+            <div class="av-ring">
+              <svg viewBox="0 0 52 52" fill="none">
+                <circle cx="26" cy="26" r="26" fill="#0D1B2E"/>
+                <ellipse cx="26" cy="23" rx="9" ry="10" fill="#0F2540"/>
+                <circle cx="26" cy="21" r="6.5" fill="#163050"/>
+                <circle cx="23" cy="20.5" r="2.5" fill="#3B9EFF"/>
+                <circle cx="29" cy="20.5" r="2.5" fill="#3B9EFF"/>
+                <circle cx="23.7" cy="19.8" r="0.8" fill="white" opacity="0.85"/>
+                <circle cx="29.7" cy="19.8" r="0.8" fill="white" opacity="0.85"/>
+                <path d="M22 27 Q26 31 30 27" stroke="#3B9EFF" stroke-width="1.4" fill="none" stroke-linecap="round" id="nm"/>
+                <ellipse cx="26" cy="38" rx="12" ry="8" fill="#0F2540"/>
+                <line x1="8" y1="16" x2="44" y2="16" stroke="#3B9EFF" stroke-width="0.4" opacity="0.12"/>
+                <line x1="8" y1="36" x2="44" y2="36" stroke="#3B9EFF" stroke-width="0.4" opacity="0.12"/>
+              </svg>
+            </div>
+            <div class="av-meta">
+              <div class="av-name">
+                Kaltura Agent
+                <span style="font-size:10px;font-weight:500;color:var(--blue);background:var(--blue-dim);border:1px solid var(--blue-border);padding:1px 7px;border-radius:20px">NEARU</span>
+              </div>
+              <div class="av-status"><div class="sdot pulse" style="background:var(--green)"></div><span id="nearu-st">NearuVibe™ monitoring</span></div>
+              <div class="emo-bars">
+                <div class="er"><span class="ek">Anxiety</span><div class="et"><div class="ef" id="ea" style="background:#D29922;width:0%"></div></div><span class="ep" id="ea-v">0%</span></div>
+                <div class="er"><span class="ek">Frustration</span><div class="et"><div class="ef" id="ef" style="background:#F85149;width:0%"></div></div><span class="ep" id="ef-v">0%</span></div>
+                <div class="er"><span class="ek">Confidence</span><div class="et"><div class="ef" id="ec" style="background:#3FB950;width:60%"></div></div><span class="ep" id="ec-v">60%</span></div>
+                <div class="er"><span class="ek">Engagement</span><div class="et"><div class="ef" id="ee" style="background:#3B9EFF;width:65%"></div></div><span class="ep" id="ee-v">65%</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="istrip is-nearu" id="i-nearu"><div class="idot"></div><span class="itext" id="it-nearu">NearuVibe™ monitoring all signals…</span><div class="waveform live"><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div></div></div>
+          <div class="chat" id="chat-nearu"></div>
+          <div class="emo-snap">
+            <div class="snap-l"><span class="snap-lbl">Detected emotion</span><div class="epill ep-calm" id="epill">Calm</div></div>
+            <span class="snap-conf" id="econf">90% confidence</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div style="display:flex;gap:8px;align-items:center;margin-top:10px" class="reveal d2">
+        <button class="btn btn-primary" onclick="runDemo()" id="pbtn">
+          <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M5 3l8 5-8 5V3z"/></svg>Play Scenario
+        </button>
+        <button class="btn btn-outline" onclick="resetDemo()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="12" height="12"><path d="M2 8a6 6 0 1 1 1.5 4"/><path d="M2 12V8h4"/></svg>Reset
+        </button>
+        <span style="font-size:12px;color:var(--text-dim)" id="shint">Select a scenario above, then press Play</span>
+      </div>
+    </div>
+
+    <!-- QUICK TOOLS -->
+    <div class="reveal d1">
+      <div class="sec-lbl" style="margin-bottom:10px">Quick Tools</div>
+      <div class="qt-grid">
+        <div class="qt-card qt-active" onclick="setS(0,null)"><div class="qt-num">A.01</div><div class="qt-icon">🔴</div><div class="qt-title">HR Onboarding</div><div class="qt-desc">Vulnerability & first-day emotional states</div></div>
+        <div class="qt-card" onclick="setS(1,null)"><div class="qt-num">A.02</div><div class="qt-icon">💬</div><div class="qt-title">Customer Support</div><div class="qt-desc">Acute frustration & urgency detection</div></div>
+        <div class="qt-card" onclick="setS(2,null)"><div class="qt-num">B.01</div><div class="qt-icon">💼</div><div class="qt-title">Sales Close</div><div class="qt-desc">Skepticism & cautious buyer signals</div></div>
+        <div class="qt-card" onclick="setS(3,null)"><div class="qt-num">B.02</div><div class="qt-icon">📚</div><div class="qt-title">Training</div><div class="qt-desc">Low engagement & disengagement recovery</div></div>
+      </div>
+    </div>
+
+    <!-- METRICS -->
+    <div id="metrics-s">
+      <div class="sec-hdr reveal"><div><div class="sec-lbl">Impact Metrics</div><div class="sec-title">What emotional intelligence does to enterprise numbers.</div></div></div>
+      <div class="m4 reveal d1">
+        <div class="mcell" style="--w:87%"><div class="mn">4.8<span class="u">/5</span></div><div class="mname">CSAT Score</div><div class="mdesc">HR onboarding with emotionally adaptive agents vs 3.1 standard</div><div class="mtag">↑ +55% vs standard</div></div>
+        <div class="mcell" style="--w:72%"><div class="mn">−42<span class="u">%</span></div><div class="mname">Escalations</div><div class="mdesc">Fewer handoffs when AI detects & responds to frustration before it peaks</div><div class="mtag">↓ Cost reduction</div></div>
+        <div class="mcell" style="--w:93%"><div class="mn">2.3<span class="u">×</span></div><div class="mname">Completions</div><div class="mdesc">Training & onboarding completions when agents adapt to confusion in real time</div><div class="mtag">↑ 130% uplift</div></div>
+        <div class="mcell" style="--w:68%"><div class="mn">+31<span class="u">%</span></div><div class="mname">Sales Conv.</div><div class="mdesc">Demo-to-close rate when agents respond to buyer skepticism live</div><div class="mtag">↑ Revenue per demo</div></div>
+      </div>
+    </div>
+
+    <!-- TECH -->
+    <div id="tech-s">
+      <div class="sec-hdr reveal"><div><div class="sec-lbl">Architecture</div><div class="sec-title">Emotion intercepts the LLM — not the other way around.</div><div class="sec-sub">NearuVibe™ reads emotional state <em>before</em> the LLM formulates its response. Zero structural changes to Kaltura's existing stack.</div></div></div>
+      <div class="pipeline reveal d1">
+        <div class="pcell"><div class="pstep">01</div><div class="picon">🎙️</div><div class="pname">Audio Input</div><div class="pdesc">WebRTC stream from user mic</div></div>
+        <div class="pcell pn"><div class="pstep">02</div><div class="picon">🧠</div><div class="pname">NearuVibe™</div><div class="pdesc">Prosodic emotion analysis, EQ signal</div></div>
+        <div class="pcell pn"><div class="pstep">03</div><div class="picon">👁️</div><div class="pname">Vision Layer</div><div class="pdesc">Micro-expression + facial affect</div></div>
+        <div class="pcell pn"><div class="pstep">04</div><div class="picon">⚡</div><div class="pname">Emotion Fusion</div><div class="pdesc">EQ state injected as LLM context</div></div>
+        <div class="pcell"><div class="pstep">05</div><div class="picon">💬</div><div class="pname">Kaltura LLM</div><div class="pdesc">Response with emotional awareness</div></div>
+        <div class="pcell"><div class="pstep">06</div><div class="picon">🤖</div><div class="pname">Avatar Output</div><div class="pdesc">Tone, pacing, expression tuned</div></div>
+      </div>
+      <div class="proof-row reveal d2">
+        <div class="proof-pill"><div class="pp-num">&lt;80ms</div><div class="pp-txt">Emotion inference latency — zero perceptible delay added</div></div>
+        <div class="proof-pill"><div class="pp-num" style="font-size:18px">Edge</div><div class="pp-txt">On-premise deployment option. Privacy-first. Emotion vectors, not raw AV.</div></div>
+        <div class="proof-pill"><div class="pp-num">30+</div><div class="pp-txt">Languages — prosodic analysis works across all languages Kaltura supports</div></div>
+        <div class="proof-pill"><div class="pp-num">9</div><div class="pp-txt">Distinct emotional states: calm, anxious, frustrated, sad, surprised & more</div></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div id="cta-s" class="reveal">
+      <div class="cta-card">
+        <div class="cta-pre">The Next Step</div>
+        <h2 class="cta-h">Give Kaltura a soul.</h2>
+        <p class="cta-p">Nearu is ready to integrate the Soul Engine™ directly into Kaltura's Immersive Agent stack. A pilot can be live in under 10 weeks. The emotional data you'll collect is yours forever.</p>
+        <div class="cta-btns">
+          <button class="btn btn-primary" style="padding:9px 26px;font-size:14px">Request a Pilot</button>
+          <button class="btn btn-outline" style="padding:9px 22px;font-size:14px">View Architecture Docs</button>
+        </div>
+        <div class="cta-foot" style="margin-top:18px">
+          <a href="mailto:noa@nnearu.com">noa@nnearu.com</a> &nbsp;·&nbsp; +972-54-5884883 &nbsp;·&nbsp; <a href="https://www.nnearu.com" target="_blank">www.nnearu.com</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+</main>
+</div><!-- /shell -->
+
+<script>
+const S=[
+  {name:"HR Onboarding",user:"Hi… I'm Sarah. It's my first day. I need to add my mother as a dependent. She's been really unwell — I moved here partly to be closer to her care.",
+   emo:{a:76,f:10,c:22,e:52},pc:"ep-vulnerable",pl:"Vulnerable",conf:"84% confidence",
+   nst:"Emotional state: VULNERABLE",
+   ic:"NearuVibe™: voice tremor + hesitant cadence → EMOTIONAL VULNERABILITY detected. Adapting response.",
+   std:"Of course! To add a dependent you'll need their date of birth, Social Security Number, and relationship type from the dropdown. You have 30 days from your start date to complete enrollment. Click Benefits › Dependents › Add New to begin.",
+   smart:"Thank you for sharing that with me, Sarah — I can hear this means a lot. Let's make sure your mother is fully covered today. I'm going to walk you through every single step, and there's absolutely no rush. How are you feeling so far — is there anything you'd like to get right first?"},
+  {name:"Customer Support",user:"This is the THIRD time I've tried to reset my password today. It keeps failing. I have a board presentation in one hour and I cannot log in.",
+   emo:{a:88,f:92,c:14,e:40},pc:"ep-frustrated",pl:"Frustrated",conf:"97% confidence",
+   nst:"Emotional state: HIGH FRUSTRATION",
+   ic:"NearuVibe™: clipped speech + elevated pitch + rapid cadence → ACUTE FRUSTRATION / HIGH URGENCY. Bypassing standard script.",
+   std:"I'm sorry you're experiencing login issues! Please try: 1) Clear browser cache. 2) Disable extensions. 3) Try a different browser. 4) Check spam folder for the reset email. If the issue persists, contact IT support.",
+   smart:"I hear you — board presentation in one hour, we need this fixed right now. I'm looking at your account directly. Your previous reset attempts went to an old email address. I'm sending a new link to your current address right now — it'll arrive in 30 seconds. Stay with me."},
+  {name:"Sales Close",user:"I like what I'm seeing but… we had a bad vendor lock-in situation last year. Data portability and pricing transparency are really important before we can move forward.",
+   emo:{a:34,f:26,c:59,e:67},pc:"ep-cautious",pl:"Cautious",conf:"81% confidence",
+   nst:"Emotional state: CAUTIOUS INTEREST",
+   ic:"NearuVibe™: falling intonation + deliberate pacing → SKEPTICISM with HIGH ENGAGEMENT. Switching to transparency mode.",
+   std:"Great question! Kaltura offers flexible pricing tiers and supports standard data export formats. Our enterprise contracts include SLA guarantees. Would you like me to send our pricing sheet and portability documentation?",
+   smart:"That experience sounds genuinely frustrating, and I want to earn your trust before we talk contracts. Let me show you our data export API — live, right now — so you can see exactly what you own and how you'd leave if you ever needed to. And I want to be direct: here's where our pricing gets complex. Let's look at it together rather than me just sending a PDF."},
+  {name:"Training",user:"Okay… I completed module four. I guess I kind of get the compliance framework. Ready for the next one I suppose.",
+   emo:{a:18,f:38,c:28,e:16},pc:"ep-disengaged",pl:"Disengaged",conf:"79% confidence",
+   nst:"Emotional state: LOW ENGAGEMENT",
+   ic:"NearuVibe™: flat prosody + low vocal energy + hedged language → DISENGAGEMENT / LOW COMPREHENSION. Intervening before module 5.",
+   std:"Great job completing Module 4! You're making excellent progress. Module 5 covers Advanced Compliance Reporting — 12 video lessons and a 20-question assessment. Click Next Module to begin!",
+   smart:"Hold on — before we move on, I want to make sure module 4 actually clicked. I heard some hesitation there. Let me give you the one real-world scenario that makes the whole framework finally make sense. Takes two minutes, and it's the reason most people suddenly get it. Can I show you?"}
+];
+
+let cur=0,playing=false;
+
+function setEmo(v){
+  [['a','ea'],['f','ef'],['c','ec'],['e','ee']].forEach(([k,id])=>{
+    document.getElementById(id).style.width=v[k]+'%';
+    document.getElementById(id+'-v').textContent=v[k]+'%';
+  });
+}
+
+function setS(i,btn){
+  cur=i;
+  document.querySelectorAll('.tab').forEach((b,j)=>b.classList.toggle('active',j===i));
+  document.querySelectorAll('.qt-card').forEach((c,j)=>c.classList.toggle('qt-active',j===i));
+  resetDemo();
+  document.getElementById('shint').textContent=`Scenario: "${S[i].name}" — press Play`;
+}
+
+function resetDemo(){
+  playing=false;
+  document.getElementById('pbtn').innerHTML='<svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M5 3l8 5-8 5V3z"/></svg>Play Scenario';
+  document.getElementById('chat-std').innerHTML='';
+  document.getElementById('chat-nearu').innerHTML='';
+  document.getElementById('i-std').className='istrip';
+  document.getElementById('it-std').textContent='Awaiting input…';
+  document.getElementById('it-nearu').textContent='NearuVibe™ monitoring all signals…';
+  document.getElementById('i-nearu').className='istrip is-nearu';
+  document.getElementById('std-st').textContent='No emotion detection';
+  document.getElementById('nearu-st').textContent='NearuVibe™ monitoring';
+  setEmo({a:0,f:0,c:60,e:65});
+  document.getElementById('epill').className='epill ep-calm';
+  document.getElementById('epill').textContent='Calm';
+  document.getElementById('econf').textContent='90% confidence';
+  document.getElementById('sp-std').className='pill pill-ghost';
+  document.getElementById('sp-std').innerHTML='<div class="sdot" style="background:var(--text-muted)"></div>Ready';
+  document.getElementById('sp-nearu').className='pill pill-blue';
+  document.getElementById('sp-nearu').innerHTML='<div class="sdot pulse"></div>Sensing';
+  document.getElementById('g-status').className='pill pill-green';
+  document.getElementById('g-status').innerHTML='<div class="sdot pulse"></div>Responding';
+}
+
+function addBubble(chatId,type,who,text){
+  return new Promise(res=>{
+    const area=document.getElementById(chatId);
+    const b=document.createElement('div');
+    b.className='bbl '+type;
+    b.innerHTML=`<div class="bbl-who">${who}</div><div class="bt"></div>`;
+    area.appendChild(b);
+    area.scrollTop=area.scrollHeight;
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{
+        b.classList.add('show');
+        const bt=b.querySelector('.bt');
+        let i=0;const spd=type==='bbl-user'?22:16;
+        function tick(){
+          if(i<text.length){
+            let c=text.slice(0,i+1);
+            if(type==='bbl-smart') c=c.replace(/\b(right now|stay with me|together|with me|I hear you|I can hear|your mother|directly|earn your trust|show you|live|every single step|I want to be direct|no rush)\b/gi,'<span class="hl">$1</span>');
+            bt.innerHTML=c;i++;
+            setTimeout(tick,spd+Math.random()*12);
+          }else res();
+        }
+        tick();
+      },80);
+    });
+  });
+}
+
+async function runDemo(){
+  if(playing)return;
+  playing=true;
+  const s=S[cur];
+  document.getElementById('pbtn').innerHTML='<svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12"><path d="M5 3l8 5-8 5V3z"/></svg>Playing…';
+  document.getElementById('shint').textContent='';
+  document.getElementById('std-st').textContent='Listening…';
+  document.getElementById('nearu-st').textContent='Listening — processing prosody…';
+  document.getElementById('sp-std').innerHTML='<div class="sdot" style="background:var(--text-muted)"></div>Listening';
+  document.getElementById('sp-nearu').innerHTML='<div class="sdot pulse"></div>Listening';
+  document.getElementById('g-status').className='pill pill-amber';
+  document.getElementById('g-status').innerHTML='<div class="sdot pulse"></div>Listening';
+
+  addBubble('chat-std','bbl-user','USER',s.user);
+  await addBubble('chat-nearu','bbl-user','USER',s.user);
+
+  await d(500);
+  document.getElementById('i-std').className='istrip is-std';
+  document.getElementById('it-std').textContent='Processing request…';
+  document.getElementById('sp-std').innerHTML='<div class="sdot" style="background:var(--text-muted)"></div>Processing';
+
+  await d(400);
+  document.getElementById('i-nearu').className='istrip is-nearu';
+  document.getElementById('it-nearu').textContent=s.ic;
+  document.getElementById('nearu-st').textContent=s.nst;
+  document.getElementById('sp-nearu').innerHTML='<div class="sdot pulse"></div>Emotion Detected';
+  setEmo(s.emo);
+  setTimeout(()=>{
+    const p=document.getElementById('epill');
+    p.className='epill '+s.pc;p.textContent=s.pl;
+    document.getElementById('econf').textContent=s.conf;
+  },600);
+
+  await d(900);
+  document.getElementById('sp-std').innerHTML='<div class="sdot" style="background:var(--text-muted)"></div>Responding';
+  await addBubble('chat-std','bbl-std','AGENT A',s.std);
+
+  await d(400);
+  document.getElementById('sp-nearu').innerHTML='<div class="sdot pulse"></div>Responding (Empathy)';
+  document.getElementById('g-status').className='pill pill-green';
+  document.getElementById('g-status').innerHTML='<div class="sdot pulse"></div>Responding';
+  await addBubble('chat-nearu','bbl-smart','AGENT B + NEARU',s.smart);
+
+  document.getElementById('pbtn').innerHTML='✓ &nbsp;Done';
+  document.getElementById('sp-nearu').innerHTML='<div class="sdot pulse"></div>Sensing';
+  document.getElementById('shint').textContent='Switch scenario or Reset to play again';
+  playing=false;
+}
+
+function d(ms){return new Promise(r=>setTimeout(r,ms))}
+
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const mobs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('anm')}),{threshold:0.2});
+document.querySelectorAll('.mcell').forEach(el=>mobs.observe(el));
+
+setS(0,null);
+</script>
+</body>
+</html>
