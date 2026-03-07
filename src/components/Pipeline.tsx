@@ -1,4 +1,4 @@
-import type { RefObject } from "react";
+import { useState, type RefObject } from "react";
 
 const STEPS = [
   { icon: "🎙️", title: "Audio Input", desc: "WebRTC stream from user mic", nearu: false },
@@ -13,8 +13,52 @@ const PROOF = [
   { value: "<80ms", label: "Emotion inference latency — zero perceptible delay added" },
   { value: "Edge", label: "On-premise deployment. Privacy-first. Emotion vectors, not raw AV." },
   { value: "30+", label: "Languages — works across all languages Kaltura supports" },
-  { value: "9", label: "Distinct emotional states recognized" },
+  {
+    value: "9",
+    label: "Distinct emotional states recognized",
+    custom: true as const,
+    line1: "9 emotional states in MVP",
+    line2: "Up to 30 in roadmap",
+    badge: "In R&D",
+  },
 ];
+
+const NEARU_TAB_LOGO = "/nearu-tab-logo.png";
+
+function NearuTabBadge() {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        padding: "4px 8px",
+        background: "var(--blue)",
+        color: "#0d1117",
+        fontSize: 10,
+        fontWeight: 700,
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: 20,
+      }}
+    >
+      {!imgError ? (
+        <img
+          src={NEARU_TAB_LOGO}
+          alt="NEARU"
+          style={{ height: 14, width: "auto", maxWidth: "100%", objectFit: "contain" }}
+          onError={() => setImgError(true)}
+        />
+      ) : (
+        "NEARU"
+      )}
+    </div>
+  );
+}
 
 type PipelineProps = {
   sectionRef: RefObject<HTMLElement>;
@@ -57,22 +101,7 @@ export function Pipeline({ sectionRef }: PipelineProps) {
             }}
           >
             {step.nearu && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  padding: "4px 8px",
-                  background: "var(--blue)",
-                  color: "#0d1117",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  textAlign: "center",
-                }}
-              >
-                NEARU
-              </div>
+              <NearuTabBadge />
             )}
             <div style={{ fontSize: 24, marginBottom: 10, marginTop: step.nearu ? 4 : 0 }}>{step.icon}</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>{step.title}</div>
@@ -97,8 +126,45 @@ export function Pipeline({ sectionRef }: PipelineProps) {
               borderRadius: "var(--radius)",
             }}
           >
-            <div style={{ fontSize: 18, fontWeight: 700, color: "var(--blue)", marginBottom: 6 }}>{p.value}</div>
-            <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.4 }}>{p.label}</div>
+            {"custom" in p && p.custom ? (
+              <>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
+                  <span style={{ fontSize: 18, fontWeight: 700, color: "var(--blue)" }}>9</span>
+                  <span
+                    className="proof-arrow"
+                    style={{
+                      fontSize: 12,
+                      color: "var(--text-muted)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    → 30
+                  </span>
+                  <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>emotional states in MVP</span>
+                </div>
+                <div style={{ fontSize: 12, color: "var(--green)", lineHeight: 1.4, marginBottom: 8 }}>
+                  Up to <strong>30</strong> in roadmap
+                </div>
+                <span
+                  style={{
+                    display: "inline-block",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "4px 8px",
+                    borderRadius: "var(--radius-sm)",
+                    background: "var(--amber-dim)",
+                    color: "var(--amber)",
+                  }}
+                >
+                  {p.badge}
+                </span>
+              </>
+            ) : (
+              <>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "var(--blue)", marginBottom: 6 }}>{p.value}</div>
+                <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.4 }}>{p.label}</div>
+              </>
+            )}
           </div>
         ))}
       </div>

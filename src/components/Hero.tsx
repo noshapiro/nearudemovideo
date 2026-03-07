@@ -12,7 +12,19 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
       className="section reveal"
       data-section="hero"
     >
-      <div className="card">
+      <div className="card" style={{ position: "relative" }}>
+        <img
+          src="/kaltura-logo.png"
+          alt="Kaltura"
+          style={{
+            position: "absolute",
+            top: 36,
+            right: 44,
+            height: 40,
+            width: "auto",
+            objectFit: "contain",
+          }}
+        />
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
           <span
             style={{

@@ -25,7 +25,25 @@
 
 ---
 
-## 3. Аватар персонажа NEARU (карточка Agent B)
+## 3. Логотип Kaltura (Hero-карточка)
+
+**Файл:** `kaltura-logo.png`  
+**Путь:** `public/kaltura-logo.png`
+
+Отображается в правом верхнем углу контейнера Hero (карточка с «Your avatars can hear»). Размер по высоте как кнопка «Watch the Demo» (~40 px).
+
+---
+
+## 4. Логотип NEARU для вкладок пайплайна (Architecture)
+
+**Файл:** `nearu-tab-logo.png`  
+**Путь:** `public/nearu-tab-logo.png`
+
+Показывается вместо текста «NEARU» в синих вкладках над шагами пайплайна (NearuVibe™, Vision Layer, Emotion Fusion). Фон вкладки синий (`--blue`), поэтому нужен логотип **контрастного цвета** (например белый или светлый). Рекомендуемая высота: ~14 px. Если файла нет, отображается текст «NEARU».
+
+---
+
+## 5. Аватар персонажа NEARU (карточка Agent B)
 
 **Файл:** `nearu-avatar.png` **или** `nearu-avatar.svg`  
 **Путь:** `public/nearu-avatar.png` или `public/nearu-avatar.svg`
