@@ -68,24 +68,32 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 12,
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: 1,
+            background: "var(--border)",
+            border: "1px solid var(--border)",
+            borderRadius: 10,
+            overflow: "hidden",
+            marginTop: 28,
           }}
         >
           <StatCell
-            value="68%"
+            main="68"
+            unit="%"
             label="of users abandon after one emotionally failed AI interaction"
             badge="Problem"
             badgeVariant="red"
           />
           <StatCell
-            value="$13.8B"
+            main="$13.8"
+            unit="B"
             label="Emotion AI market by 2030 — 24.5% CAGR"
             badge="Market"
             badgeVariant="green"
           />
           <StatCell
-            value="&lt;10wk"
+            main="&lt;10"
+            unit="wk"
             label="To a live Nearu-enhanced pilot inside Kaltura's stack"
             badge="Timeline"
             badgeVariant="amber"
@@ -97,40 +105,66 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
 }
 
 function StatCell({
-  value,
+  main,
+  unit,
   label,
   badge,
   badgeVariant,
 }: {
-  value: string;
+  main: string;
+  unit: string;
   label: string;
   badge: string;
   badgeVariant: "red" | "green" | "amber";
 }) {
   const badgeStyle =
     badgeVariant === "red"
-      ? { background: "var(--red)", color: "#fff" }
+      ? { background: "rgba(248,81,73,0.15)", color: "#F85149", border: "1px solid rgba(248,81,73,0.3)" }
       : badgeVariant === "green"
-        ? { background: "var(--green)", color: "#fff" }
-        : { background: "var(--amber)", color: "#fff" };
+        ? { background: "rgba(63,185,80,0.15)", color: "#3FB950", border: "1px solid rgba(63,185,80,0.3)" }
+        : { background: "rgba(210,153,34,0.15)", color: "#D29922", border: "1px solid rgba(210,153,34,0.3)" };
   return (
     <div
       style={{
-        padding: "28px 24px",
+        padding: "20px 24px",
         display: "flex",
         flexDirection: "column",
-        gap: 8,
+        gap: 4,
+        background: "var(--bg-card)",
       }}
     >
-      <div style={{ fontSize: 40, fontWeight: 700, color: "var(--text)" }}>{value}</div>
-      <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.4 }}>{label}</div>
+      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: 2 }}>
+        <span
+          style={{
+            fontSize: 28,
+            fontWeight: 700,
+            color: "var(--text)",
+            letterSpacing: "-0.03em",
+          }}
+        >
+          {main}
+        </span>
+        <span style={{ fontSize: 18, color: "var(--text-muted)" }}>{unit}</span>
+      </div>
+      <div
+        style={{
+          fontSize: 12,
+          color: "var(--text-muted)",
+          lineHeight: 1.4,
+          marginTop: 2,
+        }}
+      >
+        {label}
+      </div>
       <span
         style={{
+          marginTop: 8,
+          display: "inline-flex",
+          alignSelf: "flex-start",
           fontSize: 11,
           fontWeight: 600,
-          padding: "4px 10px",
-          borderRadius: "var(--radius-sm)",
-          width: "fit-content",
+          padding: "3px 10px",
+          borderRadius: 20,
           ...badgeStyle,
         }}
       >

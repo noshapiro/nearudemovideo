@@ -51,18 +51,19 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
               color: "var(--text)",
             }}
           >
-            Give Kaltura a soul.
+            Give Agents empathy.
           </h2>
           <p
             style={{
               margin: "0 auto 28px",
               fontSize: 14,
               color: "var(--text-muted)",
-              maxWidth: 440,
+              maxWidth: 520,
               lineHeight: 1.6,
             }}
           >
-            Request a pilot to integrate the NearuVibe™ directly into Kaltura's Immersive Agent stack — with your content, your agents, and your metrics.
+            Request a pilot to integrate the NearuVibe™ directly into Kaltura's stack —<br />
+            with your content, your agents, and your metrics.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
             <a href="mailto:noa@nnearu.com?subject=Kaltura%20Pilot%20Request" className="btn btn-primary">
