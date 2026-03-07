@@ -62,7 +62,7 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
               lineHeight: 1.6,
             }}
           >
-            Request a pilot to see NearuVibe™ running inside your Kaltura stack — with your content, your agents, and your metrics.
+            Request a pilot to integrate the NearuVibe™ directly into Kaltura's Immersive Agent stack — with your content, your agents, and your metrics.
           </p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 32 }}>
             <a href="mailto:noa@nnearu.com?subject=Kaltura%20Pilot%20Request" className="btn btn-primary">
