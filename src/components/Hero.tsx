@@ -69,11 +69,7 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            gap: 1,
-            background: "var(--border)",
-            border: "1px solid var(--border)",
-            borderRadius: 10,
-            overflow: "hidden",
+            gap: 0,
             marginTop: 28,
           }}
         >
@@ -83,6 +79,7 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
             label="of users abandon after one emotionally failed AI interaction"
             badge="Problem"
             badgeVariant="red"
+            hasSeparator
           />
           <StatCell
             main="$13.8"
@@ -90,6 +87,7 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
             label="Emotion AI market by 2030 — 24.5% CAGR"
             badge="Market"
             badgeVariant="green"
+            hasSeparator
           />
           <StatCell
             main="&lt;10"
@@ -110,12 +108,14 @@ function StatCell({
   label,
   badge,
   badgeVariant,
+  hasSeparator,
 }: {
   main: string;
   unit: string;
   label: string;
   badge: string;
   badgeVariant: "red" | "green" | "amber";
+  hasSeparator?: boolean;
 }) {
   const badgeStyle =
     badgeVariant === "red"
@@ -131,9 +131,10 @@ function StatCell({
         flexDirection: "column",
         gap: 4,
         background: "var(--bg-card)",
+        borderRight: hasSeparator ? "1px solid var(--border)" : undefined,
       }}
     >
-      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: 2 }}>
+      <div style={{ display: "flex", alignItems: "baseline", flexWrap: "wrap" }}>
         <span
           style={{
             fontSize: 28,
