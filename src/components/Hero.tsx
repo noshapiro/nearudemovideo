@@ -12,19 +12,7 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
       className="section reveal"
       data-section="hero"
     >
-      <div className="card" style={{ position: "relative" }}>
-        <img
-          src="/kaltura-logo.png"
-          alt="Kaltura"
-          style={{
-            position: "absolute",
-            top: 36,
-            right: 44,
-            height: 40,
-            width: "auto",
-            objectFit: "contain",
-          }}
-        />
+      <div className="card">
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
           <span
             style={{
@@ -81,10 +69,7 @@ export function Hero({ sectionRef, onViewArchitecture }: HeroProps) {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 1,
-            background: "var(--border)",
-            borderRadius: "var(--radius)",
-            overflow: "hidden",
+            gap: 12,
           }}
         >
           <StatCell
@@ -122,39 +107,31 @@ function StatCell({
   badge: string;
   badgeVariant: "red" | "green" | "amber";
 }) {
-  const badgeBg =
+  const badgeStyle =
     badgeVariant === "red"
-      ? "rgba(248,81,73,0.12)"
+      ? { background: "var(--red)", color: "#fff" }
       : badgeVariant === "green"
-        ? "var(--green-dim)"
-        : "var(--amber-dim)";
-  const badgeColor =
-    badgeVariant === "red"
-      ? "var(--red)"
-      : badgeVariant === "green"
-        ? "var(--green)"
-        : "var(--amber)";
+        ? { background: "var(--green)", color: "#fff" }
+        : { background: "var(--amber)", color: "#fff" };
   return (
     <div
       style={{
-        background: "var(--bg-panel)",
-        padding: 20,
+        padding: "28px 24px",
         display: "flex",
         flexDirection: "column",
         gap: 8,
       }}
     >
-      <div style={{ fontSize: 24, fontWeight: 700, color: "var(--text)" }}>{value}</div>
+      <div style={{ fontSize: 40, fontWeight: 700, color: "var(--text)" }}>{value}</div>
       <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.4 }}>{label}</div>
       <span
         style={{
           fontSize: 11,
           fontWeight: 600,
-          padding: "4px 8px",
+          padding: "4px 10px",
           borderRadius: "var(--radius-sm)",
-          background: badgeBg,
-          color: badgeColor,
           width: "fit-content",
+          ...badgeStyle,
         }}
       >
         {badge}

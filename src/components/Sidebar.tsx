@@ -1,46 +1,106 @@
 import { useState, type RefObject } from "react";
 
+const SIDEBAR_LOGO_SIZE = 48;
+
+function SidebarFooter() {
+  const [logoError, setLogoError] = useState(false);
+  return (
+    <div
+      style={{
+        marginTop: "auto",
+        padding: "20px 20px 0",
+        borderTop: "1px solid var(--border)",
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+      }}
+    >
+      <div
+        style={{
+          width: SIDEBAR_LOGO_SIZE,
+          height: SIDEBAR_LOGO_SIZE,
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "var(--bg-card)",
+          border: "1px solid var(--border)",
+          borderRadius: "var(--radius)",
+          overflow: "hidden",
+        }}
+      >
+        {!logoError ? (
+          <img
+            src="/kaltura-logo.png"
+            alt="Kaltura"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              padding: 4,
+            }}
+            onError={() => setLogoError(true)}
+          />
+        ) : (
+          <span style={{ fontSize: 18, fontWeight: 600, color: "var(--text-muted)" }}>K</span>
+        )}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text)" }}>Kaltura Demo</div>
+        <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Partner Preview</div>
+      </div>
+    </div>
+  );
+}
+
 const navItems = [
   { id: "live-session", label: "Live Session", icon: LiveIcon, active: true },
   { id: "impact-metrics", label: "Impact Metrics", icon: ChartIcon },
   { id: "architecture", label: "Architecture", icon: ArchIcon },
-  { id: "start-pilot", label: "Start Pilot", icon: RocketIcon },
+  { id: "start-pilot", label: "Start Pilot", icon: PlusIcon },
 ];
 
 function LiveIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <circle cx="8" cy="8" r="4" fill="currentColor" />
-      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.5" />
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="8" cy="8" r="2.5" fill="currentColor" />
     </svg>
   );
 }
 function ChartIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M2 12v-2h3v2H2zm5-4v6h3V8H7zm5-4v10h3V4h-3z" fill="currentColor" />
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path
+        d="M2 11 L5 7 L8 9 L12 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
 function ArchIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M2 14h12v-2H2v2zm0-4h12V8H2v2zm2-6h8V2h-8v2z" fill="currentColor" />
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <rect x="2" y="6" width="5" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="9" y="3" width="5" height="11" rx="1" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
 }
-function RocketIcon() {
+function PlusIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M8 1L6 5H4l2 8 2-8H8L8 1z" fill="currentColor" />
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
 function SettingsIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M8 10a2 2 0 100-4 2 2 0 000 4z" fill="currentColor" />
-      <path d="M13.5 8a1.5 1.5 0 01-.5 1.1l.7 1.9-1.4.5-.7-1.9a2 2 0 01-1.2 0l-.7 1.9-1.4-.5.7-1.9A1.5 1.5 0 017 8a1.5 1.5 0 01.9-1.4l-.7-1.9 1.4-.5.7 1.9a2 2 0 011.2 0l.7-1.9 1.4.5-.7 1.9c.3.2.5.5.5.9z" fill="currentColor" />
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M8 5.5V8l2 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -85,7 +145,7 @@ export function Sidebar({ sectionRefs }: SidebarProps) {
         padding: "24px 0",
       }}
     >
-      <div style={{ padding: "0 20px" }}>
+      <div style={{ padding: "0 20px", marginBottom: 32 }}>
         <a href="/" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }} aria-label="NEARU × Kaltura">
           {logoSrc ? (
             <img
@@ -104,8 +164,7 @@ export function Sidebar({ sectionRefs }: SidebarProps) {
           )}
         </a>
       </div>
-
-      <div style={{ marginTop: 32, padding: "0 12px" }}>
+      <div style={{ padding: "0 12px" }}>
         <div style={{ fontSize: 10, fontWeight: 600, color: "var(--text-muted)", letterSpacing: "0.08em", marginBottom: 10 }}>
           WORKSPACE
         </div>
@@ -127,15 +186,17 @@ export function Sidebar({ sectionRefs }: SidebarProps) {
                   borderRadius: "var(--radius-sm)",
                   background: isActive ? "var(--blue-dim)" : "transparent",
                   color: isActive ? "var(--blue)" : "var(--text)",
-                  fontSize: 14,
-                  fontWeight: isActive ? 500 : 400,
+                  fontSize: 13,
+                  fontWeight: 500,
                   cursor: "pointer",
                   fontFamily: "inherit",
                   textAlign: "left",
                   width: "100%",
                 }}
               >
-                <item.icon />
+                <span style={{ opacity: isActive ? 1 : 0.6, display: "flex", alignItems: "center" }}>
+                  <item.icon />
+                </span>
                 {item.label}
               </button>
             );
@@ -159,11 +220,13 @@ export function Sidebar({ sectionRefs }: SidebarProps) {
             borderRadius: "var(--radius-sm)",
             background: "transparent",
             color: "var(--text)",
-            fontSize: 14,
+            fontSize: 13,
+            fontWeight: 500,
             cursor: "pointer",
             fontFamily: "inherit",
             textAlign: "left",
             width: "100%",
+            opacity: 0.6,
           }}
         >
           <SettingsIcon />
@@ -171,38 +234,7 @@ export function Sidebar({ sectionRefs }: SidebarProps) {
         </button>
       </div>
 
-      <div
-        style={{
-          marginTop: "auto",
-          padding: "20px 20px 0",
-          borderTop: "1px solid var(--border)",
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-        }}
-      >
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            background: "var(--bg-card)",
-            border: "1px solid var(--border)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 14,
-            fontWeight: 600,
-            color: "var(--text-muted)",
-          }}
-        >
-          K
-        </div>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 14, fontWeight: 500, color: "var(--text)" }}>Kaltura Demo</div>
-          <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Partner Preview</div>
-        </div>
-      </div>
+      <SidebarFooter />
     </aside>
   );
 }

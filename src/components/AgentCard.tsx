@@ -260,9 +260,20 @@ export function AgentCard({
             {isNearu && scenario ? (
               <EmotionBars values={scenario.emotion} visible={emotionBarsVisible} />
             ) : (
-              <div style={{ fontSize: 12, color: "var(--text-dim)", display: "flex", alignItems: "center", gap: 6 }}>
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 2v4M8 10v2M8 6a1 1 0 100 2 1 1 0 000-2z" stroke="currentColor" strokeWidth="1.5" />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 5,
+                  fontSize: 11,
+                  color: "var(--text-dim)",
+                  marginTop: 2,
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }} aria-hidden>
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.4" />
+                  <path d="M8 7v4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  <circle cx="8" cy="5" r="0.7" fill="currentColor" />
                 </svg>
                 Emotional state: unknown
               </div>

@@ -185,6 +185,18 @@ export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, on
 
   return (
     <section ref={sectionRef} id="demo" className="section reveal" data-section="demo">
+      <div style={{ marginBottom: 24 }}>
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", color: "var(--text-muted)", textTransform: "uppercase", marginBottom: 8 }}>
+          LIVE SCENARIO COMPARISON
+        </div>
+        <h2 style={{ margin: "0 0 8px", fontSize: 20, fontWeight: 600, color: "var(--text)", lineHeight: 1.3 }}>
+          Same user. Same question.{" "}
+          <span style={{ color: "var(--blue)", fontWeight: 700 }}>Completely different experience.</span>
+        </h2>
+        <p style={{ margin: 0, fontSize: 14, color: "var(--text-muted)" }}>
+          Select a scenario, then press Play to watch both agents respond.
+        </p>
+      </div>
       <div style={{ marginBottom: 20 }}>
         <div
           style={{

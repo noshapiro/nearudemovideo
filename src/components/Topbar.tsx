@@ -56,10 +56,8 @@ export function Topbar({ status }: TopbarProps) {
           }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-            <path
-              d="M11 7a4 4 0 11-8 0 4 4 0 018 0 4 4 0 01-8 0zM7 11a6 6 0 0012 0l-2-2a4 4 0 10-6 0L7 11z"
-              fill="currentColor"
-            />
+            <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <path d="M10.5 10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
       </div>

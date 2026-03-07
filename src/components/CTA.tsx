@@ -29,7 +29,7 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
             pointerEvents: "none",
           }}
         />
-        <div style={{ position: "relative", textAlign: "center", padding: "8px 0" }}>
+        <div style={{ position: "relative", textAlign: "center", padding: "44px 24px" }}>
           <div
             style={{
               fontSize: 11,
@@ -40,12 +40,12 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
               marginBottom: 12,
             }}
           >
-            The Next Step
+            THE NEXT STEP
           </div>
           <h2
             style={{
               margin: "0 0 16px",
-              fontSize: 30,
+              fontSize: 32,
               fontWeight: 700,
               letterSpacing: "-0.03em",
               color: "var(--text)",
@@ -58,7 +58,7 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
               margin: "0 auto 28px",
               fontSize: 14,
               color: "var(--text-muted)",
-              maxWidth: 420,
+              maxWidth: 440,
               lineHeight: 1.6,
             }}
           >
@@ -74,7 +74,7 @@ export function CTA({ sectionRef, onViewArchitecture }: CTAProps) {
           </div>
           <div
             style={{
-              fontSize: 13,
+              fontSize: 12,
               color: "var(--text-dim)",
             }}
           >

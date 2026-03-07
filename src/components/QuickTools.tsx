@@ -50,7 +50,7 @@ export function QuickTools({ sectionRef, selectedId, onSelect }: QuickToolsProps
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div style={{ fontSize: 20, marginBottom: 8 }}>{tool.icon}</div>
+              <span style={{ fontSize: 20, marginBottom: 8, display: "block" }}>{tool.icon}</span>
               <div style={{ fontSize: 11, color: "var(--text-dim)", marginBottom: 4 }}>{tool.code}</div>
               <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>{tool.title}</div>
               <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.4 }}>{tool.subtitle}</div>

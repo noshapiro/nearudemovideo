@@ -70,7 +70,8 @@ body {
 .main-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 0 32px 48px;
+  padding: 28px 28px 48px;
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
@@ -151,6 +152,13 @@ body {
 .btn:hover,
 .btn:focus {
   text-decoration: none;
+}
+
+/* Hero Kaltura logo — avoid global img constraints */
+.kaltura-logo {
+  height: 36px !important;
+  width: auto !important;
+  max-width: none !important;
 }
 
 .btn:active {

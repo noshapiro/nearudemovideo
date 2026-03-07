@@ -9,20 +9,6 @@ const STEPS = [
   { icon: "🤖", title: "Avatar Output", desc: "Tone, pacing, expression tuned", nearu: false },
 ];
 
-const PROOF = [
-  { value: "<80ms", label: "Emotion inference latency — zero perceptible delay added" },
-  { value: "Edge", label: "On-premise deployment. Privacy-first. Emotion vectors, not raw AV." },
-  { value: "30+", label: "Languages — works across all languages Kaltura supports" },
-  {
-    value: "9",
-    label: "Distinct emotional states recognized",
-    custom: true as const,
-    line1: "9 emotional states in MVP",
-    line2: "Up to 30 in roadmap",
-    badge: "In R&D",
-  },
-];
-
 const NEARU_TAB_LOGO = "/nearu-tab-logo.png";
 
 function NearuTabBadge() {
@@ -31,26 +17,27 @@ function NearuTabBadge() {
     <div
       style={{
         position: "absolute",
+        left: "50%",
+        transform: "translateX(-50%)",
         top: 0,
-        left: 0,
-        right: 0,
-        padding: "4px 8px",
+        padding: "5px 10px",
         background: "var(--blue)",
-        color: "#0d1117",
-        fontSize: 10,
+        color: "#fff",
+        fontSize: 9,
         fontWeight: 700,
-        textAlign: "center",
-        display: "flex",
+        letterSpacing: "0.1em",
+        borderRadius: "0 0 6px 6px",
+        display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: 20,
+        zIndex: 1,
       }}
     >
       {!imgError ? (
         <img
           src={NEARU_TAB_LOGO}
           alt="NEARU"
-          style={{ height: 14, width: "auto", maxWidth: "100%", objectFit: "contain" }}
+          style={{ height: 8, width: "auto", maxWidth: 48, objectFit: "contain" }}
           onError={() => setImgError(true)}
         />
       ) : (
@@ -59,6 +46,18 @@ function NearuTabBadge() {
     </div>
   );
 }
+
+const PROOF = [
+  { value: "<80ms", label: "Emotion inference latency — zero perceptible delay added" },
+  { value: "Edge", label: "On-premise deployment. Privacy-first. Emotion vectors, not raw AV." },
+  { value: "30+", label: "Languages — works across all languages Kaltura supports" },
+  {
+    value: "9",
+    label: "Distinct emotional states: calm, anxious, frustrated, sad, surprised & more",
+    custom: true as const,
+    badge: "In R&D",
+  },
+];
 
 type PipelineProps = {
   sectionRef: RefObject<HTMLElement>;
@@ -85,7 +84,8 @@ export function Pipeline({ sectionRef }: PipelineProps) {
           gridTemplateColumns: "repeat(6, 1fr)",
           gap: 1,
           background: "var(--border)",
-          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--border)",
+          borderRadius: "var(--radius)",
           overflow: "hidden",
           marginBottom: 24,
         }}
@@ -95,17 +95,20 @@ export function Pipeline({ sectionRef }: PipelineProps) {
             key={i}
             style={{
               background: step.nearu ? "var(--blue-glow)" : "var(--bg-panel)",
-              padding: "28px 16px 20px",
+              padding: "20px 16px",
+              paddingTop: step.nearu ? 22 : 20,
+              textAlign: "center",
               position: "relative",
-              borderTop: step.nearu ? "3px solid var(--blue)" : undefined,
+              overflow: "hidden",
             }}
           >
-            {step.nearu && (
-              <NearuTabBadge />
-            )}
-            <div style={{ fontSize: 24, marginBottom: 10, marginTop: step.nearu ? 4 : 0 }}>{step.icon}</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 4 }}>{step.title}</div>
-            <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.4 }}>{step.desc}</div>
+            {step.nearu && <NearuTabBadge />}
+            <div style={{ fontSize: 10, color: "var(--text-dim)", marginBottom: 8 }}>
+              {String(i + 1).padStart(2, "0")}
+            </div>
+            <div style={{ fontSize: 22, marginBottom: 8 }}>{step.icon}</div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", marginBottom: 4 }}>{step.title}</div>
+            <div style={{ fontSize: 10, color: "var(--text-muted)", lineHeight: 1.4 }}>{step.desc}</div>
           </div>
         ))}
       </div>
@@ -119,50 +122,46 @@ export function Pipeline({ sectionRef }: PipelineProps) {
         {PROOF.map((p, i) => (
           <div
             key={i}
+            className="proof-pill-card"
             style={{
-              padding: 16,
+              padding: "14px 18px",
               background: "var(--bg-panel)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              minHeight: 72,
             }}
           >
             {"custom" in p && p.custom ? (
               <>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 4, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 18, fontWeight: 700, color: "var(--blue)" }}>9</span>
-                  <span
-                    className="proof-arrow"
-                    style={{
-                      fontSize: 12,
-                      color: "var(--text-muted)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    → 30
-                  </span>
-                  <span style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>emotional states in MVP</span>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "var(--blue)" }}>9</div>
+                <div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.4, marginBottom: 4 }}>
+                    Distinct emotional states: calm, anxious, frustrated, sad, surprised & more
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 11, color: "var(--blue)" }}>→ 30 states in roadmap</span>
+                    <span
+                      style={{
+                        fontSize: 9,
+                        fontWeight: 600,
+                        padding: "1px 6px",
+                        borderRadius: 20,
+                        background: "var(--amber-dim)",
+                        color: "var(--amber)",
+                      }}
+                    >
+                      {p.badge}
+                    </span>
+                  </div>
                 </div>
-                <div style={{ fontSize: 12, color: "var(--green)", lineHeight: 1.4, marginBottom: 8 }}>
-                  Up to <strong>30</strong> in roadmap
-                </div>
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: 11,
-                    fontWeight: 600,
-                    padding: "4px 8px",
-                    borderRadius: "var(--radius-sm)",
-                    background: "var(--amber-dim)",
-                    color: "var(--amber)",
-                  }}
-                >
-                  {p.badge}
-                </span>
               </>
             ) : (
               <>
-                <div style={{ fontSize: 18, fontWeight: 700, color: "var(--blue)", marginBottom: 6 }}>{p.value}</div>
-                <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.4 }}>{p.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "var(--blue)" }}>{p.value}</div>
+                <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.4 }}>{p.label}</div>
               </>
             )}
           </div>

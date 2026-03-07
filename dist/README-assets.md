@@ -30,7 +30,7 @@
 **Файл:** `kaltura-logo.png`  
 **Путь:** `public/kaltura-logo.png`
 
-Отображается в правом верхнем углу контейнера Hero (карточка с «Your avatars can hear»). Размер по высоте как кнопка «Watch the Demo» (~40 px).
+Отображается в правом верхнем углу контейнера Hero (карточка с «Your avatars can hear») и в футере сайдбара. В Hero размер как кнопка «Watch the Demo» (высота 40 px, контейнер мин. 140 px). В сайдбаре — контейнер 48×48 px. **Файл должен лежать в `public/kaltura-logo.png`** — тогда на localhost и в сборке лого подтянется.
 
 ---
 

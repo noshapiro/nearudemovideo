@@ -2,34 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import type { RefObject } from "react";
 
 const METRICS = [
-  {
-    value: "4.8/5",
-    title: "CSAT Score",
-    desc: "HR onboarding with emotionally adaptive agents vs 3.1 standard",
-    delta: "↑ +55% vs standard",
-    barWidth: 87,
-  },
-  {
-    value: "−42%",
-    title: "Escalations",
-    desc: "Fewer handoffs when AI detects & responds to frustration before it peaks",
-    delta: "↓ Cost reduction",
-    barWidth: 72,
-  },
-  {
-    value: "2.3×",
-    title: "Completions",
-    desc: "Training completions when agents adapt to confusion in real time",
-    delta: "↑ 130% uplift",
-    barWidth: 93,
-  },
-  {
-    value: "+31%",
-    title: "Sales Conv.",
-    desc: "Demo-to-close rate when agents respond to buyer skepticism live",
-    delta: "↑ Revenue per demo",
-    barWidth: 68,
-  },
+  { main: "4.8", unit: "/5", title: "CSAT Score", desc: "HR onboarding with emotionally adaptive agents vs 3.1 standard", delta: "↑ +55% vs standard" },
+  { main: "−42", unit: "%", title: "Escalations", desc: "Fewer handoffs when AI detects & responds to frustration before it peaks", delta: "↓ Cost reduction" },
+  { main: "2.3", unit: "×", title: "Completions", desc: "Training completions when agents adapt to confusion in real time", delta: "↑ 130% uplift" },
+  { main: "+31", unit: "%", title: "Sales Conv.", desc: "Demo-to-close rate when agents respond to buyer skepticism live", delta: "↑ Revenue per demo" },
 ];
 
 type MetricsProps = {
@@ -54,8 +30,10 @@ export function Metrics({ sectionRef }: MetricsProps) {
           gridTemplateColumns: "repeat(4, 1fr)",
           gap: 1,
           background: "var(--border)",
-          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--border-md)",
+          borderRadius: 12,
           overflow: "hidden",
+          marginBottom: 40,
         }}
       >
         {METRICS.map((m, i) => (
@@ -66,18 +44,20 @@ export function Metrics({ sectionRef }: MetricsProps) {
   );
 }
 
+const METRIC_BAR_FILL = 75; // одинаковое заполнение полосы по центру (%)
+
 function MetricCell({
-  value,
+  main,
+  unit,
   title,
   desc,
   delta,
-  barWidth,
 }: {
-  value: string;
+  main: string;
+  unit: string;
   title: string;
   desc: string;
   delta: string;
-  barWidth: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -100,15 +80,18 @@ function MetricCell({
       ref={ref}
       style={{
         background: "var(--bg-panel)",
-        padding: 24,
+        padding: "28px 24px",
         display: "flex",
         flexDirection: "column",
         gap: 10,
         position: "relative",
       }}
     >
-      <div style={{ fontSize: 28, fontWeight: 700, color: "var(--text)" }}>{value}</div>
-      <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{title}</div>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
+        <span style={{ fontSize: 52, fontWeight: 700, color: "var(--text)" }}>{main}</span>
+        <span style={{ fontSize: 20, fontWeight: 700, color: "var(--text-muted)" }}>{unit}</span>
+      </div>
+      <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)" }}>{title}</div>
       <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.45, flex: 1 }}>{desc}</div>
       <div
         style={{
@@ -118,16 +101,17 @@ function MetricCell({
           right: 0,
           height: 2,
           background: "var(--border)",
-          borderRadius: 0,
           overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
         <div
           style={{
             height: "100%",
-            width: visible ? `${barWidth}%` : "0%",
+            width: visible ? `${METRIC_BAR_FILL}%` : "0%",
+            maxWidth: "100%",
             background: "var(--blue)",
-            borderRadius: 0,
             transition: "width 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         />
@@ -136,8 +120,11 @@ function MetricCell({
         style={{
           fontSize: 12,
           fontWeight: 500,
+          padding: "4px 8px",
+          borderRadius: "var(--radius-sm)",
+          background: "var(--blue-dim)",
           color: "var(--blue)",
-          marginTop: 4,
+          width: "fit-content",
         }}
       >
         {delta}
