@@ -145,7 +145,7 @@ function StatCell({
         >
           {main}
         </span>
-        <span style={{ fontSize: 18, color: "var(--text-muted)" }}>{unit}</span>
+        <span style={{ fontSize: 18, color: "var(--text)", marginLeft: 4 }}>{unit}</span>
       </div>
       <div
         style={{

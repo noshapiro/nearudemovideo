@@ -7,16 +7,18 @@ type PlaybackPhase = "idle" | "user-typing" | "intercept" | "std-response" | "sm
 
 const TAB_ICONS: Record<number, string> = {
   0: "🔴",
-  1: "💬",
-  2: "💼",
-  3: "📚",
+  1: "🛡️",
+  2: "💬",
+  3: "💼",
+  4: "📚",
 };
 
 const TAB_LABELS: Record<number, string> = {
   0: "HR Onboarding",
-  1: "Support",
-  2: "Sales",
-  3: "Training",
+  1: "CS Insurance",
+  2: "Support",
+  3: "Sales",
+  4: "Training",
 };
 
 type DemoSectionProps = {
@@ -55,6 +57,8 @@ function typeWriter(
 
 export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, onSelectScenario }: DemoSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const [csSubIndex, setCsSubIndex] = useState<0 | 1>(0);
+  const [salesSubIndex, setSalesSubIndex] = useState<0 | 1>(0);
   const [playPhase, setPlayPhase] = useState<PlaybackPhase>("idle");
   const [userVisibleLength, setUserVisibleLength] = useState(0);
   const [stdVisibleLength, setStdVisibleLength] = useState(0);
@@ -65,7 +69,9 @@ export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, on
   const [emotionPillRevealed, setEmotionPillRevealed] = useState(false);
   const cancelRef = useRef<(() => void)[]>([]);
 
-  const scenarioForPlayback = SCENARIOS[activeTab];
+  const scenarioIndex =
+    activeTab === 1 ? 1 + csSubIndex : activeTab === 2 ? 3 : activeTab === 3 ? 4 + salesSubIndex : activeTab === 4 ? 6 : activeTab;
+  const scenarioForPlayback = SCENARIOS[scenarioIndex];
 
   const resetDemo = useCallback(() => {
     cancelRef.current.forEach((c) => c());
@@ -82,7 +88,10 @@ export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, on
   }, [onStatusChange]);
 
   useEffect(() => {
-    setActiveTab(selectedScenarioId ?? 0);
+    const next = selectedScenarioId ?? 0;
+    setActiveTab(next);
+    if (next !== 1) setCsSubIndex(0);
+    if (next !== 3) setSalesSubIndex(0);
   }, [selectedScenarioId]);
 
   useEffect(() => {
@@ -208,7 +217,7 @@ export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, on
             gap: 2,
           }}
         >
-          {[0, 1, 2, 3].map((tab) => (
+          {[0, 1, 2, 3, 4].map((tab) => (
             <button
               key={tab}
               type="button"
@@ -229,6 +238,102 @@ export function DemoSection({ sectionRef, onStatusChange, selectedScenarioId, on
             </button>
           ))}
         </div>
+        {activeTab === 1 && (
+          <div
+            style={{
+              marginTop: 10,
+              display: "flex",
+              gap: 6,
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setCsSubIndex(0);
+                resetDemo();
+              }}
+              style={{
+                fontSize: 11,
+                padding: "4px 12px",
+                borderRadius: 20,
+                border: `1px solid ${csSubIndex === 0 ? "var(--blue-border)" : "var(--border)"}`,
+                background: csSubIndex === 0 ? "var(--blue-dim)" : "transparent",
+                color: csSubIndex === 0 ? "var(--blue)" : "var(--text-muted)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Claim Frustration
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setCsSubIndex(1);
+                resetDemo();
+              }}
+              style={{
+                fontSize: 11,
+                padding: "4px 12px",
+                borderRadius: 20,
+                border: `1px solid ${csSubIndex === 1 ? "var(--blue-border)" : "var(--border)"}`,
+                background: csSubIndex === 1 ? "var(--blue-dim)" : "transparent",
+                color: csSubIndex === 1 ? "var(--blue)" : "var(--text-muted)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Add Dependent
+            </button>
+          </div>
+        )}
+        {activeTab === 3 && (
+          <div
+            style={{
+              marginTop: 10,
+              display: "flex",
+              gap: 6,
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setSalesSubIndex(0);
+                resetDemo();
+              }}
+              style={{
+                fontSize: 11,
+                padding: "4px 12px",
+                borderRadius: 20,
+                border: `1px solid ${salesSubIndex === 0 ? "var(--blue-border)" : "var(--border)"}`,
+                background: salesSubIndex === 0 ? "var(--blue-dim)" : "transparent",
+                color: salesSubIndex === 0 ? "var(--blue)" : "var(--text-muted)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Deal Objection
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setSalesSubIndex(1);
+                resetDemo();
+              }}
+              style={{
+                fontSize: 11,
+                padding: "4px 12px",
+                borderRadius: 20,
+                border: `1px solid ${salesSubIndex === 1 ? "var(--blue-border)" : "var(--border)"}`,
+                background: salesSubIndex === 1 ? "var(--blue-dim)" : "transparent",
+                color: salesSubIndex === 1 ? "var(--blue)" : "var(--text-muted)",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              CX Discovery
+            </button>
+          </div>
+        )}
       </div>
 
       <div

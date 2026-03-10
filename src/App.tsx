@@ -33,7 +33,7 @@ export default function App() {
   const ctaRef = useRef<HTMLElement | null>(null);
 
   const [topbarStatus, setTopbarStatus] = useState<"responding" | "listening">("responding");
-  const [selectedScenarioId, setSelectedScenarioId] = useState<number | null>(null);
+  const [selectedScenarioId, setSelectedScenarioId] = useState<number | null>(0);
 
   const sectionRefs = {
     hero: heroRef,
