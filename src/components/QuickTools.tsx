@@ -231,6 +231,19 @@ export function QuickTools({ sectionRef, selectedId, onSelect }: QuickToolsProps
                       fontSize: 11,
                       padding: "2px 8px",
                       borderRadius: 9999,
+                      background: "var(--amber-dim)",
+                      color: "var(--amber)",
+                      fontWeight: 600,
+                      border: "1px solid rgba(210, 153, 34, 0.3)",
+                    }}
+                  >
+                    Anxiety
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      padding: "2px 8px",
+                      borderRadius: 9999,
                       background: "var(--blue-dim)",
                       color: "var(--blue)",
                       fontWeight: 600,
@@ -240,20 +253,10 @@ export function QuickTools({ sectionRef, selectedId, onSelect }: QuickToolsProps
                     Vulnerable
                   </span>
                 </span>
-                <span>84% confidence</span>
+                <span>84% detection confidence</span>
               </div>
             </div>
           </div>
-          <p
-            style={{
-              marginTop: 10,
-              fontSize: 12,
-              color: "var(--text-dim)",
-              textAlign: "center",
-            }}
-          >
-            🎬 Real avatar interaction — recorded with Kaltura Immersive Agents
-          </p>
         </>
       )}
     </section>
