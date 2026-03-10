@@ -207,7 +207,7 @@ export function AgentCard({
             fontWeight: 500,
           }}
         >
-          {isNearu ? "NEARU Soul Engine™" : "Standard Kaltura Avatar"}
+          {isNearu ? "NEARU Soul Engine™" : "Standard Avatar"}
         </span>
         <span
           style={{
